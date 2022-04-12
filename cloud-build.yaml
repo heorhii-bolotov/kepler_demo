@@ -25,7 +25,7 @@ steps:
   - name: gcr.io/cloud-builders/gcloud
     args: [ app, deploy ]
   - id: 'upload-cached-yarn-dependencies'
-    waitFor: [ 'build-front' ]
+    waitFor: [ gcr.io/cloud-builders/npm ]
     name: gcr.io/cloud-builders/gsutil
     entrypoint: bash
     dir: cloudcmr-front
