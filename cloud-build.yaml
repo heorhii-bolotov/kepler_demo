@@ -18,12 +18,12 @@ steps:
     dir: gcpappengine
     args: [ 'run', 'create-env' ]
     env:
-      - 'CLIENT_ID=${_CLIENT_ID}'
-      - 'CLIENT_SECRET=${_CLIENT_SECRET}'
+      - 'REACT_APP_GCP_CLIENT_ID=${_CLIENT_ID}'
+      - 'REACT_APP_GCP_CLIENT_SECRET=${_CLIENT_SECRET}'
       - 'REACT_APP_MAPBOX_API=${_REACT_APP_MAPBOX_API}'
-      - 'REFRESH_TOKEN=${_REFRESH_TOKEN}'
-      - 'PROJECT_ID=${_PROJECT_ID}'
-      - 'LOCATION=${_LOCATION}'
+      - 'REACT_APP_GCP_REFRESH_TOKEN=${_REFRESH_TOKEN}'
+      - 'REACT_APP_GCP_PROJECT_ID=${_PROJECT_ID}'
+      - 'REACT_APP_GCP_LOCATION=${_LOCATION}'
   - id: 'build-dependencies'
     name: gcr.io/cloud-builders/npm
     dir: gcpappengine

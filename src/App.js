@@ -25,8 +25,7 @@ export default function App() {
 function Map() {
     const dispatch = useDispatch();
 
-    // console.log(process.env.REACT_APP_MAPBOX_API)
-    // console.log(process.env.GCP_CREDENTIALS)
+    console.log(process.env)
 
     const { data } =
       useSwr("orders", async () =>
@@ -37,7 +36,7 @@ function Map() {
 
   React.useEffect(() => {
     if (data) {
-        // console.log(data)
+        console.log(data)
         dispatch(
           addDataToMap({
             datasets: [

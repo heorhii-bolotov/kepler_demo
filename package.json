@@ -7,10 +7,12 @@
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "dotenv": "^16.0.0",
     "google-auth-library": "^7.10.0",
     "kepler.gl": "^2.0.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-dotenv": "^0.1.0",
     "react-palm": "^1.1.2",
     "react-redux": "^7.2.0",
     "react-scripts": "^4.0.3",
@@ -20,7 +22,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts --max_old_space_size=2048 build",
+    "build": "react-scripts --max_old_space_size=4096 build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "create-env": "printenv > .env"

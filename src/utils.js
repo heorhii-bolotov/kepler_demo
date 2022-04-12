@@ -1,15 +1,15 @@
 const {BigQuery} = require('@google-cloud/bigquery');
 
 const CONFIG = {
-    LOCATION: process.env.LOCATION,
+    LOCATION: process.env.REACT_APP_GCP_LOCATION,
     GCP_CREDENTIALS: {
         credentials: {
-            "client_id": process.env.CLIENT_ID,
-            "client_secret": process.env.CLIENT_SECRET,
-            "refresh_token": process.env.REFRESH_TOKEN,
+            "client_id": process.env.REACT_APP_GCP_CLIENT_ID,
+            "client_secret": process.env.REACT_APP_GCP_CLIENT_SECRET,
+            "refresh_token": process.env.REACT_APP_GCP_REFRESH_TOKEN,
             "type": "authorized_user"
         },
-        projectId: process.env.PROJECT_ID,
+        projectId: process.env.REACT_APP_GCP_PROJECT_ID,
     },
     DATASETS_PARAMS: {
         orders: {
