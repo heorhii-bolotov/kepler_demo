@@ -20,12 +20,13 @@ steps:
       - 'REFRESH_TOKEN=${_REFRESH_TOKEN}'
       - 'PROJECT_ID=${_PROJECT_ID}'
       - 'LOCATION=${_LOCATION}'
-  - name: gcr.io/cloud-builders/npm
+  - id: 'build'
+    name: gcr.io/cloud-builders/npm
     args: [ run, build, --prod ]
   - name: gcr.io/cloud-builders/gcloud
     args: [ app, deploy ]
   - id: 'upload-cached-yarn-dependencies'
-    waitFor: [ gcr.io/cloud-builders/npm ]
+    waitFor: [ 'build' ]
     name: gcr.io/cloud-builders/gsutil
     entrypoint: bash
     dir: cloudcmr-front
