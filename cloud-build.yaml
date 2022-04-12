@@ -1,0 +1,19 @@
+steps:
+  - name: gcr.io/cloud-builders/npm
+    args: [ install ]
+  - name: node
+    entrypoint: npm
+    args: [ "run", "create-env" ]
+    env:
+      - 'CLIENT_ID=${_CLIENT_ID}'
+      - 'CLIENT_SECRET=${_CLIENT_SECRET}'
+      - 'REACT_APP_MAPBOX_API=${_REACT_APP_MAPBOX_API}'
+      - 'REFRESH_TOKEN=${_REFRESH_TOKEN}'
+      - 'PROJECT_ID=${_PROJECT_ID}'
+      - 'LOCATION=${_LOCATION}'
+  - name: gcr.io/cloud-builders/npm
+    args: [ run, build, --prod ]
+  - name: gcr.io/cloud-builders/gcloud
+    args: [ app, deploy ]
+timeout: "1600s"
+

@@ -1,15 +1,15 @@
 const {BigQuery} = require('@google-cloud/bigquery');
 
 const CONFIG = {
-    LOCATION: 'us-west1',
+    LOCATION: process.env.LOCATION,
     GCP_CREDENTIALS: {
         credentials: {
-            "client_id": "32555940559.apps.googleusercontent.com",
-            "client_secret": "ZmssLNjJy2998hD4CTg2ejr2",
-            "refresh_token": "1//098MguckVDTZBCgYIARAAGAkSNwF-L9Iroa1LmKC_kDPBvJFma1OH6fo-yNHtO_BheRvJq017gaHt0VFaNfytX_FVOqJD-a7_Wmw",
+            "client_id": process.env.CLIENT_ID,
+            "client_secret": process.env.CLIENT_SECRET,
+            "refresh_token": process.env.REFRESH_TOKEN,
             "type": "authorized_user"
         },
-        projectId: 'playground-s-11-e9a7f078',
+        projectId: process.env.PROJECT_ID,
     },
     DATASETS_PARAMS: {
         orders: {
@@ -140,4 +140,6 @@ async function fetchDatasets(configs = CONFIG.DATASETS_PARAMS) {
 
 export default fetchDatasets;
 
-// fetchDatasets().then(data => console.log(data.orders)).catch(console.error)
+// fetchDatasets()
+// .then(data => console.log(data.orders))
+// .catch(console.error)
