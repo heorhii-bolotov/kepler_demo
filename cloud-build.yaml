@@ -25,14 +25,14 @@ steps:
   - name: gcr.io/cloud-builders/gcloud
     args: [ app, deploy ]
   - id: 'upload-cached-yarn-dependencies'
-      waitFor: [ 'build-front' ]
-      name: gcr.io/cloud-builders/gsutil
-      entrypoint: bash
-      dir: cloudcmr-front
-      args:
-        - '-c'
-        - |
-          tar -zcf yarn-dependencies.tgz ./node_modules
-          gsutil cp yarn-dependencies.tgz gs://${PROJECT_ID}-cache-dependencies/cache/yarn-dependencies.tgz
+    waitFor: [ 'build-front' ]
+    name: gcr.io/cloud-builders/gsutil
+    entrypoint: bash
+    dir: cloudcmr-front
+    args:
+      - '-c'
+      - |
+        tar -zcf yarn-dependencies.tgz ./node_modules
+        gsutil cp yarn-dependencies.tgz gs://${PROJECT_ID}-cache-dependencies/cache/yarn-dependencies.tgz
 timeout: "1600s"
 
