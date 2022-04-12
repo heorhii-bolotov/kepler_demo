@@ -1,18 +1,22 @@
 steps:
   - id: 'download-cached-yarn-dependencies'
     name: gcr.io/cloud-builders/gsutil
-    dir: gcpfirebasefront
+    dir: gcpappengine
     entrypoint: bash
     args:
       - '-c'
       - |
         gsutil cp gs://${PROJECT_ID}-cache-dependencies/cache/yarn-dependencies.tgz yarn-dependencies.tgz || exit 0
         tar -zxf yarn-dependencies.tgz || exit 0
-  - name: gcr.io/cloud-builders/npm
+  - id: 'install-npm'
+    name: gcr.io/cloud-builders/npm
+    dir: gcpappengine
     args: [ install ]
-  - name: node
+  - id: 'create-env'
+    name: node
     entrypoint: npm
-    args: [ "run", "create-env" ]
+    dir: gcpappengine
+    args: [ 'run', 'create-env' ]
     env:
       - 'CLIENT_ID=${_CLIENT_ID}'
       - 'CLIENT_SECRET=${_CLIENT_SECRET}'
@@ -20,13 +24,15 @@ steps:
       - 'REFRESH_TOKEN=${_REFRESH_TOKEN}'
       - 'PROJECT_ID=${_PROJECT_ID}'
       - 'LOCATION=${_LOCATION}'
-  - id: 'build'
+  - id: 'build-dependencies'
     name: gcr.io/cloud-builders/npm
+    dir: gcpappengine
     args: [ run, build, --prod ]
-  - name: gcr.io/cloud-builders/gcloud
+  - id: 'deploy-app'
+    name: gcr.io/cloud-builders/gcloud
     args: [ app, deploy ]
   - id: 'upload-cached-yarn-dependencies'
-    waitFor: [ 'build' ]
+    waitFor: [ 'build-dependencies' ]
     name: gcr.io/cloud-builders/gsutil
     entrypoint: bash
     dir: cloudcmr-front
@@ -35,5 +41,5 @@ steps:
       - |
         tar -zcf yarn-dependencies.tgz ./node_modules
         gsutil cp yarn-dependencies.tgz gs://${PROJECT_ID}-cache-dependencies/cache/yarn-dependencies.tgz
-timeout: "1600s"
+timeout: '1600s'
 
